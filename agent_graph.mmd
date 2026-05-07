@@ -1,0 +1,37 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	summarize(summarize)
+	analyze_rewrite(analyze_rewrite)
+	human_input(human_input<hr/><small><em>__interrupt = before</em></small>)
+	aggregate(aggregate)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> summarize;
+	analyze_rewrite -.-> human_input;
+	analyze_rewrite -.-> process_question\3a__start__;
+	human_input --> analyze_rewrite;
+	process_question\3aextract_answer --> aggregate;
+	summarize --> analyze_rewrite;
+	aggregate --> __end__;
+	subgraph process_question
+	process_question\3a__start__(<p>__start__</p>)
+	process_question\3alocal_agent(local_agent)
+	process_question\3alocal_tools(local_tools)
+	process_question\3acheck_local_result(check_local_result)
+	process_question\3aprepare_retry(prepare_retry)
+	process_question\3aextract_answer(extract_answer)
+	process_question\3a__start__ --> process_question\3alocal_agent;
+	process_question\3acheck_local_result -.-> process_question\3aextract_answer;
+	process_question\3acheck_local_result -. &nbsp;retry&nbsp; .-> process_question\3aprepare_retry;
+	process_question\3alocal_agent -. &nbsp;__end__&nbsp; .-> process_question\3acheck_local_result;
+	process_question\3alocal_agent -. &nbsp;tools&nbsp; .-> process_question\3alocal_tools;
+	process_question\3alocal_tools --> process_question\3alocal_agent;
+	process_question\3aprepare_retry --> process_question\3alocal_agent;
+	end
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc

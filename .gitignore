@@ -1,0 +1,28 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Qdrant database
+project/qdrant_db/
+
+# Parent store
+project/parent_store/
+
+# Markdown docs
+project/markdown_docs/
+
+# IDE
+.vscode/
+.idea/
+.qoder/
+
+# OS
+.DS_Store
+Thumbs.db

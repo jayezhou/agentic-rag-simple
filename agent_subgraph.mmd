@@ -1,0 +1,24 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	local_agent(local_agent)
+	local_tools(local_tools)
+	check_local_result(check_local_result)
+	prepare_retry(prepare_retry)
+	extract_answer(extract_answer)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> local_agent;
+	check_local_result -.-> extract_answer;
+	check_local_result -. &nbsp;retry&nbsp; .-> prepare_retry;
+	local_agent -. &nbsp;__end__&nbsp; .-> check_local_result;
+	local_agent -. &nbsp;tools&nbsp; .-> local_tools;
+	local_tools --> local_agent;
+	prepare_retry --> local_agent;
+	extract_answer --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
