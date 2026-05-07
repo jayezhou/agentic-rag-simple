@@ -72,13 +72,22 @@ def create_agent_graph(llm, tool_factory):
         interrupt_before=["human_input"]
     )
 
-    # Save graph diagrams as Mermaid files
+    # Save graph diagrams as Mermaid files with readable theme
     repo_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    def apply_theme(mermaid_code: str) -> str:
+        import re
+        mermaid_code = re.sub(
+            r"classDef default fill:[^,\n]+",
+            "classDef default fill:#2d6cdf,color:#ffffff,stroke:#1a4fa0",
+            mermaid_code
+        )
+        return mermaid_code
+
     try:
         with open(os.path.join(repo_root, "agent_graph.mmd"), "w", encoding="utf-8") as f:
-            f.write(agent_graph.get_graph(xray=True).draw_mermaid())
+            f.write(apply_theme(agent_graph.get_graph(xray=True).draw_mermaid()))
         with open(os.path.join(repo_root, "agent_subgraph.mmd"), "w", encoding="utf-8") as f:
-            f.write(agent_processor.get_graph(xray=True).draw_mermaid())
+            f.write(apply_theme(agent_processor.get_graph(xray=True).draw_mermaid()))
         print("Graph diagrams saved: agent_graph.mmd, agent_subgraph.mmd")
     except Exception as e:
         print(f"Note: Could not save graph diagrams: {e}")
