@@ -1,0 +1,21 @@
+# Git
+.git/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Generated data directories
+project/docs/
+project/markdown_docs/
+project/parent_store/
+project/qdrant_db/
+
+# Environment & secrets
+.env
+
+# Generated diagram files
+agent_graph.mmd
+agent_subgraph.mmd
